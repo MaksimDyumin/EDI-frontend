@@ -1,0 +1,14 @@
+.wiget-conatiner {
+  padding: 10px;
+}
+.main-container {
+  padding: 20px;
+}
+
+.cursor-pointer{
+  cursor: pointer!important;
+}
+
+.invisible-input{
+  display: none;
+}
