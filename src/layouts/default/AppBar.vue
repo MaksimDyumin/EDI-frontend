@@ -17,7 +17,7 @@
       <v-list-item lines="two" 
         :prepend-avatar="userStore?.user?.avatarUrl" 
         :title="userStore?.user?.first_name + ' ' + userStore?.user?.last_name"
-        :subtitle="isLoggin ? 'Logged in' : ''"
+        :subtitle="userStore?.user?.job_title"
       >
     </v-list-item>
     </template>

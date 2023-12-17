@@ -73,7 +73,7 @@ export const useDocumentStore = defineStore('document', {
       return response
     },
 
-    async createDocument(requestBody, options){
+    async createDocument(requestBody, options) {
       const response = await api.post('documents/', requestBody, options)
       return response
     },
@@ -93,5 +93,35 @@ export const useDocumentStore = defineStore('document', {
     async rejectDoc(docId) {
       await api.post(`documents/${docId}/reject/`, {})
     },
+
+    async downloadFile(url) {
+      try {
+        const response = await api.get(url, { responseType: 'blob' });
+        return response.data; // Возвращаем файл как Blob
+      } catch (error) {
+        console.error('Ошибка при загрузке файла:', error);
+        throw error;
+      }
+    },
+
+    async downloadFileToClient(serverUrl, filename) {
+      const responseData = await this.downloadFile(serverUrl)
+
+      try {
+        const reader = new FileReader();
+        reader.readAsDataURL(responseData);
+        reader.onload = (e) => {
+          const link = document.createElement('a');
+          link.href = e.target.result;
+          link.setAttribute('download', filename);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        };
+      } catch (error) {
+        console.error('Ошибка при загрузке файла:', error);
+        throw error;
+      }
+    }
   }
 })

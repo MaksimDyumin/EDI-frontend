@@ -20,50 +20,58 @@
 
 
 <script>
-import { useUserStore } from '@/store/user';
+import { useUserStore } from "@/store/user";
 
 export default {
   setup(props) {
-    const userStore = useUserStore()
+    const userStore = useUserStore();
     return {
-      userStore
-    }
+      userStore,
+    };
   },
   data() {
     return {
-      login: '',
-      password: '',
+      login: "",
+      password: "",
       loginRules: [
-        value => {
-          return true
+        (value) => {
+          return true;
         },
       ],
       passwordRules: [
-        value => {
-          return true
+        (value) => {
+          return true;
         },
       ],
-    }
+    };
   },
   methods: {
     async logIn() {
       const requestBody = {
         username: this.login,
-        password: this.password
+        password: this.password,
+      };
+      const response = await this.userStore.loginUser(requestBody);
+      if (response.statusText === "OK") {
+        this.$router.push({ name: "home" });
+      } else {
+        console.log(response.response.data.detail);
+        let instance = this.$toast.open({
+          message: response.response.data.detail,
+          position: 'top-right',
+          type: 'error',
+          // all of other options may go here
+        });
       }
-      const response = await this.userStore.loginUser(requestBody)
-      if (response.statusText === 'OK') {
-        this.$router.push({name: 'home'})
-      }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 
 <style>
-  .form-container{
-    width: 500px;
-    margin: auto;
-  }
+.form-container {
+  width: 500px;
+  margin: auto;
+}
 </style>

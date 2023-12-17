@@ -32,13 +32,18 @@ export const useUserStore = defineStore('user', {
 
   actions: {
     async loginUser(requestBody) {
-      const response = await api.post('token/', requestBody)
-      const refreshToken = useCookie('refreshToken')
-      const accessToken = useCookie('accessToken')
-      refreshToken.value = response.data.refresh
-      accessToken.value = response.data.access
-      this.isLoggin = true
-      return response
+      try {
+        const response = await api.post('token/', requestBody)
+        const refreshToken = useCookie('refreshToken')
+        const accessToken = useCookie('accessToken')
+        refreshToken.value = response.data.refresh
+        accessToken.value = response.data.access
+        this.isLoggin = true
+        return response
+      } catch (error) {
+        return error
+      }
+      
     },
     async logout() {
       this.user = undefined

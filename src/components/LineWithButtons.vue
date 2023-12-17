@@ -19,7 +19,7 @@
               :items="userStore.getUsersName" 
               v-model="recipient" 
               :item-props="itemProps" 
-              label="Выберите опцию" 
+              label="Выберите получателя" 
             >
             </v-select>
             
