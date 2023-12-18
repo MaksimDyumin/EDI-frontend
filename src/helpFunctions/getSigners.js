@@ -8,7 +8,7 @@ const certificateStore = useCertificateStore()
 export default async function (docId) {
   
   await documentStore.getDocument(docId)
-  const docUrl = `http://127.0.0.1:8000/edi/documents/${docId}/download/`
+  const docUrl = `documents/${docId}/download/`
   const documentBlob = await documentStore.downloadFile(docUrl)
 
   const base64FileContent = await certificateStore.blobToBase64(documentBlob)
@@ -17,7 +17,7 @@ export default async function (docId) {
   let signers = []
 
   for (let signatureId of signatures) {
-    const url = `http://127.0.0.1:8000/edi/signatures/${signatureId}/`;
+    const url = `signatures/${signatureId}/`;
     const responseData = await certificateStore.downloadSignature(url);
 
     const signatureContent = await new Promise((resolve, reject) => {

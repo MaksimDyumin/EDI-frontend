@@ -161,7 +161,7 @@ export default {
       this.$router.push({name: this.path[1]})
     },
     async downloadDocument() {
-      const url = `http://127.0.0.1:8000/edi/documents/${this.documentStore.parsedDocument.id}/download/`
+      const url = `documents/${this.documentStore.parsedDocument.id}/download/`
       await this.documentStore.downloadFileToClient(url, this.documentStore.parsedDocument.name)
     },
     itemProps(item) {

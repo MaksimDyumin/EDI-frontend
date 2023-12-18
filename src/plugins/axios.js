@@ -36,7 +36,7 @@ export default function getApi() {
 
       if (error?.response?.statusText === 'Unauthorized' && !config._retry && refreshToken.value) {
         config._retry = true;
-        const response = await axios.post('http://127.0.0.1:8000/edi/token/refresh/', { refresh: refreshToken.value },
+        const response = await axios.post(defaultUrl + 'token/refresh/', { refresh: refreshToken.value },
           {
             headers: {
               'Content-Type': 'application/json',
